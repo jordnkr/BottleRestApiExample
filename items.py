@@ -17,7 +17,7 @@ def get_all_items():
 def get_item(id):
     conn = sqlite3.connect('items.db')
     c = conn.cursor()    
-    c.execute("SELECT * FROM items where id=" + str(id))
+    c.execute("SELECT * FROM items where id=?", (id,))
     result = c.fetchall()
     return {'id': result[0][0], 'item': result[0][1], 'price': result[0][2]}
 
@@ -45,7 +45,7 @@ def update_item(id):
 def delete_item(id):
     conn = sqlite3.connect('items.db')
     c = conn.cursor()
-    c.execute("DELETE FROM items WHERE id=?", id)
+    c.execute("DELETE FROM items WHERE id=?", (id,))
     conn.commit()
     c.close()
 
